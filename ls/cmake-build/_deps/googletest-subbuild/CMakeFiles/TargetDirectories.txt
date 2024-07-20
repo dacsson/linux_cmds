@@ -1,3 +1,0 @@
-/home/artjom/Desktop/Projects/linux_cmds/ls/cmake-build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
-/home/artjom/Desktop/Projects/linux_cmds/ls/cmake-build/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
-/home/artjom/Desktop/Projects/linux_cmds/ls/cmake-build/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir

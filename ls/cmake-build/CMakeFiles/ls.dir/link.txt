@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/ls.dir/src/ls.c.o -o /home/artjom/Desktop/Projects/linux_cmds/ls/build/ls 
