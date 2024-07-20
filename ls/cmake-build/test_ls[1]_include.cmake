@@ -1,0 +1,5 @@
+if(EXISTS "/home/artjom/Desktop/Projects/linux_cmds/ls/cmake-build/test_ls[1]_tests.cmake")
+  include("/home/artjom/Desktop/Projects/linux_cmds/ls/cmake-build/test_ls[1]_tests.cmake")
+else()
+  add_test(test_ls_NOT_BUILT test_ls_NOT_BUILT)
+endif()

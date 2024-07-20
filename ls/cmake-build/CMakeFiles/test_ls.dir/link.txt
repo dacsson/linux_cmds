@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test_ls.dir/test/test_ls.cpp.o CMakeFiles/test_ls.dir/src/ls.c.o -o /home/artjom/Desktop/Projects/linux_cmds/ls/build/test_ls  lib/libgtest.a lib/libgtest_main.a libsrc.a lib/libgtest.a 
