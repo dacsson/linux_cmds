@@ -9,6 +9,6 @@
 #include <stdlib.h>
 #include <linux/limits.h>
 
-const char* pwd();
+const char* naive_pwd();
 
 #endif

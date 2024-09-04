@@ -8,5 +8,8 @@
 
 # Реализованы
 
-- ls
-- pwd 
+✅ ls
+✅ ldd
+⏳ pwd
+✅ wget (GET \ request to google)
+⏳ ping

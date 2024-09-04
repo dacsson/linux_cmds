@@ -1,3 +1,8 @@
+/*
+ * @OLD VERISON
+ * NOT IMPLEMENTED PROPERLY YET 
+ */
+
 #include "../includes/ping.h"
 #include <bits/types/struct_iovec.h>
 #include <sys/socket.h>
@@ -10,6 +15,83 @@ struct icmp_echo {
   uint16_t data;
   // data 
 };
+
+void ping() {
+  errno = 1;
+  char ip[INET_ADDRSTRLEN];
+  struct addrinfo hints;
+  struct addrinfo *result, *rp;
+  int fd;
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_INET;    /* Allow IPv4 or IPv6 */
+  hints.ai_socktype = SOCK_STREAM; /* Datagram socket */
+  
+  int status = getaddrinfo(url, "http", &hints, &result);
+  printf("Status: %d\n", status);
+  if(status != 0 ) {
+    
+    // perror("Adress info retieving error");
+    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
+    exit(-1);
+  }
+
+  for(rp = result; rp != NULL; rp = rp->ai_next) {
+    void* addr;
+    if(rp->ai_family == AF_INET) {
+      struct sockaddr_in* ipv4 = (struct sockaddr_in*)rp->ai_addr;
+      addr = &(ipv4->sin_addr); 
+      
+      fd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+      if(fd == -1) {
+        perror("failed to create socket");
+      }
+      
+      if(connect(fd, rp->ai_addr, rp->ai_addrlen) == -1) {
+        perror("Failed to connect");
+        close(fd);
+      } 
+      else {
+        inet_ntop(rp->ai_family, addr, ip, sizeof(ip));
+        printf("Connected to %s\n", ip);
+        break;
+      }
+      // check if entry is valid 
+
+      // printf("Name: %s\n,", ip);
+    } 
+  }
+  
+  if(rp == NULL) {
+    printf("Failed to connect");
+    exit(-1);
+  }
+
+  freeaddrinfo(result);
+ 
+  char request[] = "GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n";
+  int bytes_send = send(fd, request, sizeof(request), MSG_CONFIRM);
+  if(bytes_send == -1) {
+    perror("No bytes send");
+    exit(-1);
+  }
+ 
+  printf("%d bytes send\n", bytes_send);
+
+  char buff[2048];
+  int bytes_recv = recv(fd, buff, sizeof(buff), 0);
+  if(bytes_recv == -1) {
+    perror("No bytes received");
+    exit(-1);
+  }
+
+  buff[bytes_recv] = '\0';
+
+  close(fd);
+
+  printf("Received %d bytes => %s\n", bytes_recv, buff);
+
+}
 
 int icmp_send(struct sockaddr_in serv_addr, int sockfd, uint16_t _data)
 {
